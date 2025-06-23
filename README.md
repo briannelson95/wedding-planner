@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wedding and Event Planner
+My goal for this project is to be an all-in-one self hosted event planner for major events such as weddings, bridal showers and engagement parties. Users will be able to spin this up as a single Docker container which will create the database and frontend.
+
+## Table of Contents
+- [Planned Features](#planned-features)
+- [Getting Started](#getting-started)
+- [Built With](#built-with)
+
+## Planned Features
+- [x] Account Creation
+    - [x] First time setup to create the admin user
+    - [ ] Invite partner and or "Planner" via email (smtp)
+- [ ] Creating custom events
+    - [ ] Information about each event
+        - Date/Time
+        - Event type
+        - Details
+        - Location
+- [ ] Managing RSVP lists
+- [ ] Guest accounts
+- [ ] Gift Registries
+    - [ ] Ability for guests to mark an item as purchased
+- [ ] Task Management
+
+### Possible Features
+- Budget Tracking
+- Vendor Tracking
+- Seating Charts
+- Calendar/Timeline Builder
 
 ## Getting Started
+This is very much a work in progress but this `README` will stay up to date on working features and steps to get it running **in its current state**. That being said if you're interested in starting it as is, you can follow these instructions.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Clone the repo
+```
+git clone https://github.com/briannelson95/wedding-planner.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set your enviorment variables
+```env
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/wedding_planner
+NEXTAUTH_SECRET=your-secret
+NEXTAUTH_URL=http://localhost:3000
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Start the database
+```
+docker compose up -d
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Install dependencies and start the front end with `npm i && npm run dev` or `bun i && bun dev`
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Built With
+- NextJS 15
+- NextAuth
+- Prisma
+- TailwindCSS
+- PostgresDB
+- Docker

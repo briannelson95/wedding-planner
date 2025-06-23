@@ -4,4 +4,4 @@ node_modules/
 *.log
 data/postgres/
 uploads/
-
+data/
