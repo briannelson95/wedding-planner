@@ -1,10 +1,18 @@
+'use client'
+import Navbar from '@/components/Navbar'
+import { SessionProvider } from 'next-auth/react'
 import { ReactNode } from 'react'
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
     return (
-        <main>
-            {/* Public site header if any */}
-            {children}
-        </main>
+        <>
+            <SessionProvider>
+                <Navbar />
+                <main>
+                    {/* Public site header if any */}
+                    {children}
+                </main>
+            </SessionProvider>
+        </>
     )
 }

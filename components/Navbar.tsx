@@ -1,6 +1,8 @@
 'use client'
 
 import { useSession, signOut } from "next-auth/react";
+import { UserIcon } from "./icons/UserIcon";
+import Link from "next/link";
 
 export default function Navbar() {
     const { data: session, status } = useSession();
@@ -9,9 +11,20 @@ export default function Navbar() {
     if (!session?.user) return null
     
     return (
-        <nav className="flex justify-between items-center p-4 bg-gray-100 border-b">
-            <div className="font-semibold">Wedding Planner</div>
-            <div className="flex items-center space-x-4">
+        <nav className="flex justify-between items-center p-4 bg-background border-b">
+            <div className="flex items-center space-x-2">
+                <div className="font-semibold">Wedding Planner</div>
+                {session.user && (
+                    <Link
+                        href={'/dashboard'}
+                    >
+                        Dashboard
+                    </Link>
+                )}
+            </div>
+            
+            <div className="flex items-center space-x-2">
+                <UserIcon />
                 <span className="text-sm text-gray-600">
                     {session.user.email} ({session.user.role})
                 </span>

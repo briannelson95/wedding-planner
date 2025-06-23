@@ -1,5 +1,9 @@
 import { prisma } from './prisma';
 
 export const queries = {
-    // Test for adding invitees
+    async fetchEvents() {
+        const allEvents = await prisma.event.findMany()
+        console.log(allEvents)
+        return allEvents;
+    }
 }

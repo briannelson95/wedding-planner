@@ -21,6 +21,7 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 - [ ] Gift Registries
     - [ ] Ability for guests to mark an item as purchased
 - [ ] Task Management
+- [ ] Custom Theming
 
 ### Possible Features
 - Budget Tracking
