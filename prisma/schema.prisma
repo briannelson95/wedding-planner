@@ -12,6 +12,7 @@ model User {
     email     String   @unique
     password  String?  // hashed password
     name      String?
+    username  String   @unique
     role      Role     @default(GUEST)
     events    Event[]  @relation("EventCreator")
     createdAt DateTime @default(now())
@@ -47,4 +48,15 @@ enum RsvpStatus {
     YES
     NO
     PENDING
+}
+
+model InviteToken {
+    id          String   @id @default(cuid())
+    email       String   @unique
+    role        Role
+    token       String   @unique
+    eventId     String?
+    expiresAt   DateTime
+    accepted    Boolean  @default(false)
+    createdAt   DateTime @default(now())
 }

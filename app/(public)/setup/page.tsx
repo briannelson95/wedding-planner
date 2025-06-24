@@ -7,6 +7,7 @@ export default function SetupPage() {
     const [role, setRole] = useState<'COUPLE' | 'PLANNER' | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     async function handleSetup(e:React.FormEvent) {
         e.preventDefault();
@@ -31,13 +32,13 @@ export default function SetupPage() {
                     className='hover:cursor-pointer dark:bg-white dark:text-black rounded px-4 py-2' 
                     onClick={() => setRole('COUPLE')}
                 >
-                    I'm part of the Couple
+                    I&apos;m part of the Couple
                 </button>
                 <button 
                     className='hover:cursor-pointer dark:bg-white dark:text-black rounded px-4 py-2'
                     onClick={() => setRole('PLANNER')}
                 >
-                    I'm the Planner
+                    I&apos;m the Planner
                 </button>
             </div>
         );
@@ -45,6 +46,13 @@ export default function SetupPage() {
     return (
         <form onSubmit={handleSetup} className="space-y-4">
             <h2>Create your account ({role})</h2>
+            <input
+                type="text"
+                placeholder="Choose a username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+            />
             <input
                 type="email"
                 placeholder="Email"

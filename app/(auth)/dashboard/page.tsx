@@ -4,7 +4,7 @@ import React from 'react'
 
 export default async function DashboardPage() {
     const events = await queries.fetchEvents()
-    console.log(events)
+    // console.log(events)
 
     return (
         <div>
@@ -12,15 +12,17 @@ export default async function DashboardPage() {
             <div className='border rounded-lg max-w-6xl mx-auto p-6 space-y-4'>
                 <h2 className='text-xl font-bold'>Your Events</h2>
                 {events.map((item) => (
-                    <div key={item.id}>
-                        <p>ID: {item.id}</p>
-                        <p>Name: {item.name}</p>
-                        <p>Date: {item.date ? item.date.toISOString() : 'null'}</p>
-                        <p>Location: {item.location ? item.location : 'null'}</p>
-                        <p>Creator ID:{item.creatorId}</p>
-                        <p>Created At:{item.createdAt.toISOString()}</p>
-                        
-                    </div>
+                    <Link key={item.id} href={`/events/${item.id}`} >
+                        <div className='hover:cursor-pointer border rounded-xl p-2'>
+                            <p>ID: {item.id}</p>
+                            <p>Name: <strong>{item.name}</strong></p>
+                            <p>Date: {item.date ? item.date.toISOString() : 'null'}</p>
+                            <p>Location: {item.location ? item.location : 'null'}</p>
+                            <p>Creator ID:{item.creatorId}</p>
+                            <p>Created At:{item.createdAt.toISOString()}</p>
+                            
+                        </div>
+                    </Link>
                 ))}
                 <Link
                     href={'/events'}

@@ -24,10 +24,12 @@ export default function Navbar() {
             </div>
             
             <div className="flex items-center space-x-2">
-                <UserIcon />
-                <span className="text-sm text-gray-600">
-                    {session.user.email} ({session.user.role})
-                </span>
+                <Link href={`/user/${session.user.username}`} className="flex items-center space-x-2">
+                    <UserIcon />
+                    <span className="text-sm text-gray-600">
+                        {session.user.email} ({session.user.role})
+                    </span>
+                </Link>
                 <button
                     className="text-sm text-blue-600 underline"
                     onClick={() => signOut({ callbackUrl: '/login' })}

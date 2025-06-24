@@ -1,4 +1,5 @@
 import { prisma } from './prisma';
+import bcrypt from 'bcrypt'
 
 export const mutations = {
     async createEvent(data: {
@@ -30,5 +31,30 @@ export const mutations = {
                 email: data.email,
             },
         });
-    }
+    },
+
+    async createUser({
+        username,
+        email,
+        password,
+        role,
+    }: {
+        username: string
+        email?: string
+        password: string
+        role: 'COUPLE' | 'PLANNER' | 'GUEST'
+    }) {
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        const user = await prisma.user.create({
+            data: {
+                username,
+                email: email || '',
+                password: hashedPassword,
+                role,
+            },
+        })
+
+        return user
+    },
 };
