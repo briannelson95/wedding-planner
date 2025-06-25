@@ -18,8 +18,8 @@ export default async function DashboardPage() {
                             <p>Name: <strong>{item.name}</strong></p>
                             <p>Date: {item.date ? item.date.toISOString() : 'null'}</p>
                             <p>Location: {item.location ? item.location : 'null'}</p>
-                            <p>Creator ID:{item.creatorId}</p>
-                            <p>Created At:{item.createdAt.toISOString()}</p>
+                            <p>Created By: {item.creator.username}</p>
+                            <p>Created At: {item.createdAt.toISOString()}</p>
                             
                         </div>
                     </Link>

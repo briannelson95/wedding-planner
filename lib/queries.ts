@@ -2,7 +2,16 @@ import { prisma } from './prisma';
 
 export const queries = {
     async fetchEvents() {
-        const allEvents = await prisma.event.findMany()
+        const allEvents = await prisma.event.findMany({
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
+            }
+        })
         console.log(allEvents)
         return allEvents;
     },

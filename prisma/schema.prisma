@@ -25,14 +25,14 @@ enum Role {
 }
 
 model Event {
-    id        String   @id @default(cuid())
-    name      String
-    date      DateTime?
-    location  String?
-    creator   User     @relation("EventCreator", fields: [creatorId], references: [id])
-    creatorId String
-    guests    Guest[]
-    createdAt DateTime @default(now())
+    id          String   @id @default(cuid())
+    name        String
+    date        DateTime?
+    location    String?
+    creator     User     @relation("EventCreator", fields: [creatorId], references: [id])
+    creatorId   String
+    guests      Guest[]
+    createdAt   DateTime @default(now())
 }
 
 model Guest {

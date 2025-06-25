@@ -1,15 +1,24 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import EventInfoDisplay from '@/components/EventInfoDisplay'
+import HeadingWithEdit from '@/components/HeadingWithEdit'
 import { queries } from '@/lib/queries'
 import React from 'react'
 
 export default async function SingleEventPage({ params }: { params: { eventId: string }}) {
-    console.log(params)
     const data = await queries.singleEvent(params.eventId)
+    console.log(data)
     
     return (
         <div>
-            <h1 className='text-4xl font-bold'>
-                {data?.name}
-            </h1>
+            {data ? (
+                // @ts-ignore
+                <EventInfoDisplay event={data} />
+            ) : (
+                <p className="text-center text-gray-500 mt-10">Event not found.</p>
+            )}
+            {data?.name && (
+                <HeadingWithEdit title={data?.name} eventId={data.id} />
+            )}
         </div>
     )
 }

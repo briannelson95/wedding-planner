@@ -12,7 +12,7 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
     - [x] First time setup to create the admin user
     - [x] Invite users via email (smtp) users can be COUPLE, PLANNER, GUEST
     - [x] Create local accounts (no use of SMTP)
-- [ ] Creating custom events
+- [x] Creating and Editing custom events
     - [ ] Information about each event
         - Date/Time
         - Event type
@@ -39,6 +39,9 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 - created user pages
 - added usernames to `Users` table
 - updated first time setup to include username creation
+
+#### 6.25.25
+- now able to see and edit event data from the individual event page
 
 ## Getting Started
 This is very much a work in progress but this `README` will stay up to date on working features and steps to get it running **in its current state**. That being said if you're interested in starting it as is, you can follow these instructions.

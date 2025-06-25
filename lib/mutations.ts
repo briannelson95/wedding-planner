@@ -57,4 +57,31 @@ export const mutations = {
 
         return user
     },
+
+    async updateEvent(
+        eventId: string,
+        data: Partial<{ name: string; date: string; location: string }>
+    ) {
+        const { date, ...rest } = data;
+
+        let parsedDate: Date | undefined = undefined;
+
+        if (date) {
+            // Parse full datetime-local string into Date object
+            parsedDate = new Date(date); // Automatically handled as local time
+        }
+
+        const event = await prisma.event.update({
+            where: { id: eventId },
+            data: {
+            ...rest,
+            ...(parsedDate ? { date: parsedDate } : {}),
+            },
+        });
+
+        return event;
+    }
+
+
+
 };
