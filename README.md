@@ -18,6 +18,7 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
         - Event type
         - Details
         - Location
+- [ ] Guest book (contact information)
 - [ ] Managing RSVP lists
 - [ ] Guest accounts
 - [ ] Gift Registries
