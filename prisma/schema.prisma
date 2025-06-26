@@ -60,3 +60,17 @@ model InviteToken {
     accepted    Boolean  @default(false)
     createdAt   DateTime @default(now())
 }
+
+model GuestBookEntry {
+    id        String   @id @default(cuid())
+    fName     String
+    lName     String
+    email     String?
+    phone     String?
+    address   String?
+    notes     String?
+    side      String   // e.g., "Brian", "Janice", etc.
+    createdAt DateTime @default(now())
+}
+
+

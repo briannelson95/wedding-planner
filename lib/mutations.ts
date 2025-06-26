@@ -80,8 +80,41 @@ export const mutations = {
         });
 
         return event;
-    }
+    },
 
+    async createGuestBookEntry(data: { 
+        fName: string, 
+        lName: string,
+        side: string, 
+        email?: string, 
+        phone?: string, 
+        address?: string, 
+        notes?: string 
+    }) {
+        return await prisma.guestBookEntry.create({
+            data
+        })
+    },
 
+    async updateGuestBookEntry(id: string, data: Partial<{ 
+        fName: string,
+        lName: string,
+        side: string, 
+        email?: string, 
+        phone?: string, 
+        address?: string, 
+        notes?: string 
+    }>){
+        return await prisma.guestBookEntry.update({
+            where: { id },
+            data
+        })
+    },
+
+    async deletGuestBookEntry(id: string) {
+        return await prisma.guestBookEntry.delete({
+            where: { id }
+        })
+    },
 
 };

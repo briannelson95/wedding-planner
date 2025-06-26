@@ -27,5 +27,14 @@ export const queries = {
             }
         })
         return event
-    }
+    },
+
+    async fetchGuestBookEntries() {
+        return await prisma.guestBookEntry.findMany({
+            orderBy: [
+                { lName: 'asc' },
+                { fName: 'asc' }
+            ],
+        })
+    },
 }

@@ -12,7 +12,7 @@ export default async function EventsPage() {
             <div>
                 {allEvents.length == 0 ? (
                     <>
-                        You don't have any events yet. <Link href={'/events/create'} className='underline'>Create One!</Link>
+                        You don&apos;t have any events yet. <Link href={'/events/create'} className='underline'>Create One!</Link>
                     </>
                 ) : (
                     <table className='table-auto w-full'>

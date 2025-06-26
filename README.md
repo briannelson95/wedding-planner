@@ -18,7 +18,11 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
         - Event type
         - Details
         - Location
-- [ ] Guest book (contact information)
+- [x] Guest book (contact information)
+    - [ ] Ability to switch between table or card view
+    - [ ] Add Guests to events
+    - [ ] Invite guests via email
+    - [ ] Create local account for guest
 - [ ] Managing RSVP lists
 - [ ] Guest accounts
 - [ ] Gift Registries
@@ -43,6 +47,13 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 
 #### 6.25.25
 - now able to see and edit event data from the individual event page
+
+#### 6.26.25
+### The Guest Book
+- added guest-book page, viewable by PLANNER and COUPLE accounts
+    - db query is secure behind PLANNER and COUPLE auth sessions
+- added ability to add and edit guests to guest book
+- save guest infomation (name, email, phone, address, side (which side of the couple), notes)
 
 ## Getting Started
 This is very much a work in progress but this `README` will stay up to date on working features and steps to get it running **in its current state**. That being said if you're interested in starting it as is, you can follow these instructions.
