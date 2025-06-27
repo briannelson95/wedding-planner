@@ -19,7 +19,7 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
         - Details
         - Location
 - [x] Guest book (contact information)
-    - [ ] Ability to switch between table or card view
+    - [x] Ability to switch between table or card view
     - [ ] Add Guests to events
     - [ ] Invite guests via email
     - [ ] Create local account for guest
