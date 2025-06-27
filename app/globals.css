@@ -2,7 +2,61 @@
 
 @theme {
     --color-background: #fff5eb;
-    --color-text: #141d31;
+
+    --color-brand-text-50: rgb(15, 13, 10);
+    --color-brand-text-100: rgb(30, 27, 21);
+    --color-brand-text-200: rgb(60, 53, 42);
+    --color-brand-text-300: rgb(90, 80, 63);
+    --color-brand-text-400: rgb(120, 106, 84);
+    --color-brand-text-500: rgb(150, 133, 105);
+    --color-brand-text-600: rgb(171, 157, 135);
+    --color-brand-text-700: rgb(192, 182, 165);
+    --color-brand-text-800: rgb(213, 206, 195);
+    --color-brand-text-900: rgb(234, 231, 225);
+    --color-brand-text-950: rgb(245, 243, 240);
+
+    --color-brand-background-50: rgb(9, 14, 17);
+    --color-brand-background-100: rgb(18, 28, 33);
+    --color-brand-background-200: rgb(36, 56, 66);
+    --color-brand-background-300: rgb(54, 84, 99);
+    --color-brand-background-400: rgb(71, 112, 133);
+    --color-brand-background-500: rgb(89, 140, 166);
+    --color-brand-background-600: rgb(122, 163, 184);
+    --color-brand-background-700: rgb(156, 186, 201);
+    --color-brand-background-800: rgb(189, 209, 219);
+    --color-brand-background-900: rgb(222, 232, 237);
+    --color-brand-background-950: rgb(238, 244, 246);
+
+    --color-brand-primary-50: rgb(7, 11, 18);
+    --color-brand-primary-100: rgb(15, 22, 36);
+    --color-brand-primary-200: rgb(29, 44, 73);
+    --color-brand-primary-300: rgb(44, 67, 109);
+    --color-brand-primary-400: rgb(58, 89, 146);
+    --color-brand-primary-500: rgb(73, 111, 182);
+    --color-brand-primary-600: rgb(109, 140, 197);
+    --color-brand-primary-700: rgb(146, 169, 211);
+    --color-brand-primary-800: rgb(182, 197, 226);
+    --color-brand-primary-900: rgb(219, 226, 240);
+    --color-brand-primary-950: rgb(237, 241, 248);
+/* 
+    --color-brand-secondary-50: rgb(9, 17, 9);
+    --color-brand-secondary-100: rgb(18, 33, 18);
+    --color-brand-secondary-200: rgb(35, 67, 36);
+    --color-brand-secondary-300: rgb(53, 100, 54);
+    --color-brand-secondary-400: rgb(70, 134, 72);
+    --color-brand-secondary-500: rgb(88, 167, 91);
+    --color-brand-secondary-600: rgb(121, 185, 123);
+    --color-brand-secondary-700: rgb(155, 202, 156);
+    --color-brand-secondary-800: rgb(188, 220, 189);
+    --color-brand-secondary-900: rgb(222, 237, 222);
+    --color-brand-secondary-950: rgb(238, 246, 239); */
+    
+    --color-brand-text: rgb(87, 77, 61);
+    --color-brand-background: rgb(242, 246, 248);
+    --color-brand-primary:rgb(134, 159, 207);
+    /* --color-brand-secondary: #8ac18c;
+    --color-brand-accent: #e9e154; */
+
 }
 
 /* @theme light {
@@ -14,3 +68,11 @@
     --color-background: #141d31;
     --color-text: #fff5eb;
 } */
+
+.btn {
+    @apply border px-4 py-2 rounded-lg hover:cursor-pointer transition-colors duration-300
+}
+
+.btn-primary{
+    @apply bg-brand-primary text-brand-background border-0 hover:bg-brand-primary-500 transition-colors duration-300
+}

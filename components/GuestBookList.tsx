@@ -13,7 +13,7 @@ interface GuestBookEntry {
     notes?: string | null
 }
 
-export default function GuestBookList({ entries }: { entries: GuestBookEntry[] }) {
+export default function GuestBookList({ entries, view }: { entries: GuestBookEntry[], view: 'TABLE' | 'CARD' }) {
     const [editingEntry, setEditingEntry] = useState<GuestBookEntry | null>(null)
 
     function handleModalClose() {
@@ -59,51 +59,57 @@ export default function GuestBookList({ entries }: { entries: GuestBookEntry[] }
 
     return (
         <div className='space-y-4'>
-            <div className='overflow-hidden rounded-xl'>
-                <table className='table-auto w-full mb-16 p-4'>
-                    <thead className='bg-text text-background'>
-                        <tr className='text-left'>
-                            <th className='px-4 py-2'>Name</th>
-                            <th className='px-4 py-2'>Email</th>
-                            <th className='px-4 py-2'>Phone</th>
-                            <th className='px-4 py-2'>Address</th>
-                            <th className='px-4 py-2'>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody className=''>
-                        {entries.map(entry => (
-                            <tr
-                                key={entry.id}
-                                className=''
-                            >
-                                <td className='border border-gray-300 px-4 py-2'>{entry.fName + ' ' + entry.lName} <span className='text-sm text-gray-600'>(Side: {entry.side})</span></td>
-                                <td className='border border-gray-300 px-4 py-2'>{entry.email || 'N/A'}</td>
-                                <td className='border border-gray-300 px-4 py-2'>{entry.phone || 'N/A'}</td>
-                                <td className='border border-gray-300 px-4 py-2'>{entry.address || 'N/A'}</td>
-                                <td className='border border-gray-300 px-4 py-2'>{entry.notes || 'N/A'}</td>
+            {view === 'TABLE' ? (
+                <div className='overflow-hidden rounded-xl'>
+                    <table className='table-auto w-full mb-16 p-4'>
+                        <thead className='bg-brand-primary text-brand-background border border-brand-primary'>
+                            <tr className='text-left'>
+                                <th className='px-4 py-2'>Name</th>
+                                <th className='px-4 py-2'>Email</th>
+                                <th className='px-4 py-2'>Phone</th>
+                                <th className='px-4 py-2'>Address</th>
+                                <th className='px-4 py-2'>Notes</th>
                             </tr>
+                        </thead>
+                        <tbody className=''>
+                            {entries.map(entry => (
+                                <tr
+                                    key={entry.id}
+                                    className='odd:bg-brand-primary-900 even:bg-brand-primary-950 hover:cursor-pointer hover:bg-brand-primary-700 hover:text-brand-background transition-colors duration-50'
+                                    onClick={() => setEditingEntry(entry)}
+                                >
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.fName + ' ' + entry.lName} <span className='text-sm'>(Side: {entry.side})</span></td>
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.email || 'N/A'}</td>
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.phone || 'N/A'}</td>
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.address || 'N/A'}</td>
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.notes || 'N/A'}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <div className='space-y-4 mx-auto'>
+                    <div className='grid grid-cols-3 gap-4 w-full'>
+                        {entries.map(entry => (
+                            <div key={entry.id} className='p-4 bg-[#00000008] rounded-lg shadow-sm'>
+                                <h2 className='font-semibold text-lg'>{entry.fName} {entry.lName}</h2>
+                                <p className='text-sm text-brand-primary-400'>Side: {entry.side}</p>
+                                <p>Email: {entry.email || 'N/A'}</p>
+                                <p>Phone: {entry.phone || 'N/A'}</p>
+                                <p>Address: {entry.address || 'N/A'}</p>
+                                <p>Notes: {entry.notes || 'N/A'}</p>
+                                <button
+                                    className='text-brand-primary underline text-sm mt-2'
+                                    onClick={() => setEditingEntry(entry)}
+                                >
+                                    Edit
+                                </button>
+                            </div>
                         ))}
-                    </tbody>
-                </table>
-            </div>
-            <div className='max-w-3xl space-y-4 mx-auto'>
-                {entries.map(entry => (
-                    <div key={entry.id} className='p-4 border rounded shadow-sm'>
-                        <h2 className='font-semibold text-lg'>{entry.fName} {entry.lName}</h2>
-                        <p className='text-sm text-gray-600'>Side: {entry.side}</p>
-                        <p>Email: {entry.email || 'N/A'}</p>
-                        <p>Phone: {entry.phone || 'N/A'}</p>
-                        <p>Address: {entry.address || 'N/A'}</p>
-                        <p>Notes: {entry.notes || 'N/A'}</p>
-                        <button
-                            className='text-blue-600 underline text-sm mt-2'
-                            onClick={() => setEditingEntry(entry)}
-                        >
-                            Edit
-                        </button>
                     </div>
-                ))}
-            </div>
+                </div>
+            )}
 
             {editingEntry && (
                 <EditGuestBookEntryModal

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import AddGuestBookEntryModal from '@/components/AddGuestBookEntryModal'
 import GuestBookList from '@/components/GuestBookList'
+import TableIcon from './icons/TableIcon'
+import GuestCardIcon from './icons/GuestCardIcon'
 
 interface GuestBookEntry {
     id: string
@@ -16,7 +18,8 @@ interface GuestBookEntry {
 }
 
 export default function GuestBookPageClient({ entries }: { entries: GuestBookEntry[] }) {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+    const [view, setView] = useState<'CARD' | 'TABLE'>('TABLE')
 
     async function handleAddGuest(data: {
         fName: string
@@ -48,11 +51,21 @@ export default function GuestBookPageClient({ entries }: { entries: GuestBookEnt
     return (
         <div className='max-w-6xl mx-auto mt-8 space-y-4'>
             <div className="flex justify-between items-center">
-                <h1 className='text-2xl font-bold'>Guest Book</h1>
+                <div className='flex gap-5'>
+                    <h1 className='text-2xl font-bold'>Guest Book</h1>
+                    <div className='flex gap-2'>
+                        <button onClick={() => setView('TABLE')}>
+                            <TableIcon />
+                        </button>
+                        <button onClick={() => setView('CARD')}>
+                            <GuestCardIcon />
+                        </button>
+                    </div>
+                </div>
                 <button onClick={() => setIsOpen(true)} className="btn btn-primary">Add Guest</button>
             </div>
 
-            <GuestBookList entries={entries} />
+            <GuestBookList view={view} entries={entries} />
 
             <AddGuestBookEntryModal
                 isOpen={isOpen}

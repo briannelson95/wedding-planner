@@ -29,12 +29,12 @@ export const queries = {
         return event
     },
 
-    async fetchGuestBookEntries() {
+    async fetchGuestBookEntries(amount?: number) {
         return await prisma.guestBookEntry.findMany({
-            orderBy: [
-                { lName: 'asc' },
-                { fName: 'asc' }
-            ],
+            orderBy: amount 
+                ? { createdAt: 'desc'}
+                : [{ lName: 'asc' }, { fName: 'asc' }],
+            ...(amount ? {take: amount} : {})
         })
     },
 }

@@ -8,13 +8,13 @@ export default async function UserPage({ params }: { params: { username: string 
     const username = raw.startsWith('@') ? raw.slice(1) : raw
     
     const user = await prisma.user.findUnique({
-    where: { username },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      role: true,
-      createdAt: true,
+      where: { username },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        createdAt: true,
     },
   })
 

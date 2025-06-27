@@ -11,7 +11,7 @@ export default function Navbar() {
     if (!session?.user) return null
     
     return (
-        <nav className="flex justify-between items-center p-4 bg-background border-b">
+        <nav className="flex justify-between items-center p-4 border-b">
             <div className="flex items-center space-x-2">
                 <div className="font-semibold">Wedding Planner</div>
                 {session.user && (

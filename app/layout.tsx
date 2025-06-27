@@ -15,7 +15,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className="bg-background text-text"
+        className="bg-brand-background text-brand-text"
       >
         {children}
       </body>
