@@ -117,4 +117,47 @@ export const mutations = {
         })
     },
 
+    async addEventGuest({
+        eventId,
+        guestBookEntryId,
+    }: {
+        eventId: string,
+        guestBookEntryId: string,
+    }) {
+        return await prisma.eventGuest.create({
+            data: {
+                eventId,
+                guestBookEntryId,
+                rsvp: 'PENDING'
+            }
+        })
+    },
+
+    async updateEventGuestRsvp({
+        eventId,
+        guestBookEntryId,
+        rsvp,
+    }: {
+        eventId: string;
+        guestBookEntryId: string;
+        rsvp: 'YES' | 'NO' | 'PENDING';
+    }) {
+        return await prisma.eventGuest.update({
+            where: {
+                eventId_guestBookEntryId: { eventId, guestBookEntryId }, // compound unique constraint
+            },
+            data: {
+                rsvp,
+            },
+        });
+    },
+
+    async removeEventGuest(eventId: string, guestBookEntryId: string) {
+        return await prisma.eventGuest.delete({
+            where: {
+                eventId_guestBookEntryId: { eventId, guestBookEntryId },
+            },
+        });
+    },
+
 };

@@ -32,6 +32,7 @@ model Event {
     creator     User     @relation("EventCreator", fields: [creatorId], references: [id])
     creatorId   String
     guests      Guest[]
+    eventGuests EventGuest[] 
     createdAt   DateTime @default(now())
 }
 
@@ -70,7 +71,19 @@ model GuestBookEntry {
     address   String?
     notes     String?
     side      String   // e.g., "Brian", "Janice", etc.
+    eventGuests    EventGuest[] 
     createdAt DateTime @default(now())
 }
 
+model EventGuest {
+  id               String          @id @default(cuid())
+  event            Event           @relation(fields: [eventId], references: [id])
+  eventId          String
+  guestBookEntry   GuestBookEntry  @relation(fields: [guestBookEntryId], references: [id])
+  guestBookEntryId String
+  rsvp             RsvpStatus      @default(PENDING)
+  createdAt        DateTime        @default(now())
+
+  @@unique([eventId, guestBookEntryId]) 
+}
 

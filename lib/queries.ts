@@ -16,6 +16,48 @@ export const queries = {
         return allEvents;
     },
 
+    async fetchEventGuests(eventId: string) {
+        return await prisma.eventGuest.findMany({
+            where: { eventId },
+            include: {
+                guestBookEntry: true,
+            },
+            orderBy: [
+                {
+                    guestBookEntry: {
+                       lName: 'asc',
+                    },
+                },
+                {
+                    guestBookEntry: {
+                        fName: 'asc'
+                    }
+                }
+            ],
+        });
+    },
+
+    async fetchAvailableGuestBookEntriesForEvent(eventId: string) {
+        const invitedGuests = await prisma.eventGuest.findMany({
+            where: { eventId },
+            select: { guestBookEntryId: true }
+        });
+
+        const excludeIds = invitedGuests.map(g => g.guestBookEntryId);
+
+        return prisma.guestBookEntry.findMany({
+            where: {
+                id: {
+                    notIn: excludeIds,
+                },
+            },
+            orderBy: [
+                { lName: 'asc' },
+                { fName: 'asc' }
+            ]
+        })
+    },
+
     async singleEvent(id: string) {
         const event = await prisma.event.findUnique({
             where: { id },
