@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import EventInfoDisplay from '@/components/EventInfoDisplay'
-import HeadingWithEdit from '@/components/HeadingWithEdit'
 import { queries } from '@/lib/queries'
 import React from 'react'
 

@@ -33,6 +33,7 @@ model Event {
     creatorId   String
     guests      Guest[]
     eventGuests EventGuest[] 
+    notes       String?
     createdAt   DateTime @default(now())
 }
 

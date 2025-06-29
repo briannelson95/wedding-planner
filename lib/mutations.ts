@@ -60,7 +60,7 @@ export const mutations = {
 
     async updateEvent(
         eventId: string,
-        data: Partial<{ name: string; date: string; location: string }>
+        data: Partial<{ name: string; date: string; location: string; notes?: string; }>
     ) {
         const { date, ...rest } = data;
 
@@ -74,8 +74,8 @@ export const mutations = {
         const event = await prisma.event.update({
             where: { id: eventId },
             data: {
-            ...rest,
-            ...(parsedDate ? { date: parsedDate } : {}),
+                ...rest,
+                ...(parsedDate ? { date: parsedDate } : {}),
             },
         });
 

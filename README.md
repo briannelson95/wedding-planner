@@ -18,6 +18,7 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
         - Event type
         - Details
         - Location
+    - [x] Markdown supported notes
 - [x] Guest book (contact information)
     - [x] Ability to switch between table or card view
     - [x] Add Guests to events

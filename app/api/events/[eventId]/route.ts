@@ -13,7 +13,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { eventId: s
     const body = await req.json();
 
     try {
-        const updated = await mutations.updateEvent(eventId, body);
+        const updated = await mutations.updateEvent(eventId, {
+            name: body.name,
+            date: body.date,
+            location: body.location,
+            notes: body.notes,
+        });
         return NextResponse.json(updated);
     } catch (error) {
         console.error('[PATCH EVENT]', error);

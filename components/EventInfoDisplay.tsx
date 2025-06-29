@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react'
 import AddGuestFromGuestBook from './AddGuestFromGuestBook'
+import EventNotesEditor from './EventNotesEditor'
 
 interface Creator {
     id: string
@@ -21,6 +22,7 @@ interface EventData {
     createdAt: string
     creator: Creator
     guests: any[]
+    notes?: string
     eventGuests: any[]
 }
 
@@ -167,7 +169,7 @@ export default function EventInfoDisplay({ event }: Props) {
                         <p>{formatDate(event.createdAt)}</p>
                     </div>
                 </div>
-                 {error && <p className="text-red-500 text-sm">{error}</p>}
+                {error && <p className="text-red-500 text-sm">{error}</p>}
                 {isEditing && (
                     <div className="text-right">
                         <button
@@ -179,6 +181,13 @@ export default function EventInfoDisplay({ event }: Props) {
                         </button>
                     </div>
                 )}
+                <div className='col-span-6'>
+                    <EventNotesEditor
+                        eventId={event.id}
+                        initialNotes={event.notes || ''}
+                        canEdit={['COUPLE', 'PLANNER'].includes(event.creator.role)}
+                    />
+                </div>
             </div>
             <div className='col-span-3'>
                 <div className='flex justify-between items-center'>

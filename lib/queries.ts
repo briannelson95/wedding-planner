@@ -69,7 +69,7 @@ export const queries = {
                 eventGuests: {
                     include: {
                         guestBookEntry: true,
-                    }
+                    },
                 },
             }
         })
