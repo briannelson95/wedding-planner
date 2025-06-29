@@ -12,7 +12,7 @@ export const queries = {
                 }
             }
         })
-        console.log(allEvents)
+        
         return allEvents;
     },
 
@@ -65,7 +65,12 @@ export const queries = {
                 creator: {
                     select: { id: true, email: true, name: true, role: true },
                 },
-                guests: true
+                guests: true,
+                eventGuests: {
+                    include: {
+                        guestBookEntry: true,
+                    }
+                },
             }
         })
         return event

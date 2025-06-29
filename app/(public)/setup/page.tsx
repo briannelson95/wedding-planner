@@ -14,11 +14,11 @@ export default function SetupPage() {
 
         const res = await fetch('/api/setup', {
             method: 'POST',
-            body: JSON.stringify({ email, password, role }),
+            body: JSON.stringify({ username, email, password, role }),
         });
 
         if (res.ok) {
-            await signIn('credentials', { email, password, callbackUrl: '/' });
+            await signIn('credentials', { username, email, password, callbackUrl: '/' });
         } else {
             alert('Error setting up user');
         }

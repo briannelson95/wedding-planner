@@ -9,15 +9,12 @@ export default async function SingleEventPage({ params }: { params: { eventId: s
     console.log(data)
     
     return (
-        <div>
+        <div className='max-w-[100rem] mx-auto'>
             {data ? (
                 // @ts-ignore
                 <EventInfoDisplay event={data} />
             ) : (
                 <p className="text-center text-gray-500 mt-10">Event not found.</p>
-            )}
-            {data?.name && (
-                <HeadingWithEdit title={data?.name} eventId={data.id} />
             )}
         </div>
     )

@@ -13,17 +13,17 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
     - [x] Invite users via email (smtp) users can be COUPLE, PLANNER, GUEST
     - [x] Create local accounts (no use of SMTP)
 - [x] Creating and Editing custom events
-    - [ ] Information about each event
+    - [x] Information about each event
         - Date/Time
         - Event type
         - Details
         - Location
 - [x] Guest book (contact information)
     - [x] Ability to switch between table or card view
-    - [ ] Add Guests to events
+    - [x] Add Guests to events
     - [ ] Invite guests via email
     - [ ] Create local account for guest
-- [ ] Managing RSVP lists
+- [x] Managing RSVP lists
 - [ ] Guest accounts
 - [ ] Gift Registries
     - [ ] Ability for guests to mark an item as purchased
@@ -54,6 +54,12 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
     - db query is secure behind PLANNER and COUPLE auth sessions
 - added ability to add and edit guests to guest book
 - save guest infomation (name, email, phone, address, side (which side of the couple), notes)
+
+#### 6.28.25
+### RSVP List
+- add guests from GuestBook to any event
+- search GuestBook to add guests
+- change status of RSVP
 
 ## Getting Started
 This is very much a work in progress but this `README` will stay up to date on working features and steps to get it running **in its current state**. That being said if you're interested in starting it as is, you can follow these instructions.

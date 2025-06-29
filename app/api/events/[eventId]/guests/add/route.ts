@@ -3,14 +3,14 @@ import { mutations } from '@/lib/mutations'
 
 export async function POST(req: NextRequest, { params }: { params: { eventId: string } }) {
     const eventId = params.eventId
-    const { guestBookEntryId } = await req.json()
+    const { guestId } = await req.json() // ← match client
 
-    if (!eventId || !guestBookEntryId) {
-        return NextResponse.json({ message: 'Missing eventId or guestBookEntryId' }, { status: 400 })
+    if (!eventId || !guestId) {
+        return NextResponse.json({ message: 'Missing eventId or guestId' }, { status: 400 })
     }
 
     try {
-        const added = await mutations.addEventGuest({ eventId, guestBookEntryId })
+        const added = await mutations.addEventGuest({ eventId, guestBookEntryId: guestId }) // ← match expected arg
         return NextResponse.json(added)
     } catch (error) {
         console.error('Add Event Guest Error:', error)
