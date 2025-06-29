@@ -71,6 +71,9 @@ export const queries = {
                         guestBookEntry: true,
                     },
                 },
+                todos: {
+                    orderBy: { dueDate: 'asc' },
+                },
             }
         })
         return event

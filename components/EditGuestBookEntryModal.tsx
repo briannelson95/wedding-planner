@@ -97,6 +97,7 @@ export default function EditGuestBookEntryModal({ isOpen, onClose, initialData, 
                                     className="input input-bordered w-full"
                                     type="tel"
                                     name="phone"
+                                    placeholder="phone"
                                     value={formData.phone || ''}
                                     onChange={handleChange}
                                 />
@@ -104,6 +105,7 @@ export default function EditGuestBookEntryModal({ isOpen, onClose, initialData, 
                                     className="input input-bordered w-full"
                                     type="text"
                                     name="address"
+                                    placeholder="address"
                                     value={formData.address || ''}
                                     onChange={handleChange}
                                 />
@@ -111,12 +113,14 @@ export default function EditGuestBookEntryModal({ isOpen, onClose, initialData, 
                                     className="input input-bordered w-full"
                                     type="text"
                                     name="side"
+                                    placeholder="Bride/Groom"
                                     value={formData.side || ''}
                                     onChange={handleChange}
                                 />
                                 <textarea
                                     className='input input-bordered w-full'
                                     name='notes'
+                                    placeholder="notes"
                                     value={formData.notes || ''}
                                     onChange={handleChange}
                                 />

@@ -34,6 +34,7 @@ model Event {
     guests      Guest[]
     eventGuests EventGuest[] 
     notes       String?
+    todos        EventTodo[]
     createdAt   DateTime @default(now())
 }
 
@@ -77,14 +78,28 @@ model GuestBookEntry {
 }
 
 model EventGuest {
-  id               String          @id @default(cuid())
-  event            Event           @relation(fields: [eventId], references: [id])
-  eventId          String
-  guestBookEntry   GuestBookEntry  @relation(fields: [guestBookEntryId], references: [id])
-  guestBookEntryId String
-  rsvp             RsvpStatus      @default(PENDING)
-  createdAt        DateTime        @default(now())
+    id               String          @id @default(cuid())
+    event            Event           @relation(fields: [eventId], references: [id])
+    eventId          String
+    guestBookEntry   GuestBookEntry  @relation(fields: [guestBookEntryId], references: [id])
+    guestBookEntryId String
+    rsvp             RsvpStatus      @default(PENDING)
+    createdAt        DateTime        @default(now())
 
-  @@unique([eventId, guestBookEntryId]) 
+    @@unique([eventId, guestBookEntryId]) 
 }
 
+model EventTodo {
+    id          String   @id @default(cuid())
+    name        String
+    complete    Boolean  @default(false)
+    dueDate     DateTime?
+    event       Event    @relation(fields: [eventId], references: [id])
+    eventId     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    // Optional for future extensibility
+    // category   String? 
+    // assignedTo String? // could link to User in future
+}

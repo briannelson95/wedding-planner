@@ -5,12 +5,23 @@
 import React, { useState } from 'react'
 import AddGuestFromGuestBook from './AddGuestFromGuestBook'
 import EventNotesEditor from './EventNotesEditor'
+import ToDoList from './ToDoList'
+import { fetchEventTodos } from '@/lib/helper/fetchTodos'
 
 interface Creator {
     id: string
     email: string
     name: string | null
     role: 'COUPLE' | 'PLANNER' | 'GUEST'
+}
+
+interface Todo {
+    id: string
+    name: string
+    complete: boolean
+    dueDate?: string | null
+    createdAt: string
+    updatedAt?: string
 }
 
 interface EventData {
@@ -24,6 +35,7 @@ interface EventData {
     guests: any[]
     notes?: string
     eventGuests: any[]
+    todos: Todo[] 
 }
 
 interface Props {
@@ -33,6 +45,7 @@ interface Props {
 export default function EventInfoDisplay({ event }: Props) {
     const [isEditing, setIsEditing] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
+    const [todos, setTodos] = useState(event.todos)
 
     const eventGuests = event.eventGuests
     console.log(eventGuests)
@@ -83,29 +96,14 @@ export default function EventInfoDisplay({ event }: Props) {
         }
     }
 
-    // async function handleChangeRsvp(e: any) {
-    //     const newRsvp = e.target.value as 'YES' | 'NO' | 'PENDING';
-
-    //     try {
-    //         const res = await fetch(
-    //             `/api/events/${guest.eventId}/guests/${guest.guestBookEntryId}/rsvp`,
-    //             {
-    //                 method: 'PATCH',
-    //                 headers: { 'Content-Type': 'application/json' },
-    //                 body: JSON.stringify({ rsvp: newRsvp }),
-    //             }
-    //         );
-
-    //         if (!res.ok) {
-    //             throw new Error('Failed to update RSVP');
-    //         }
-
-    //         // Optionally trigger re-fetch or state update here
-    //     } catch (err) {
-    //         console.error('RSVP update error:', err);
-    //         // Optionally show error message in UI
-    //     }
-    // }
+    async function refreshTodos() {
+        try {
+            const data = await fetchEventTodos(event.id)
+            setTodos(data)
+        } catch (err) {
+            console.error('Failed to refresh todos:', err)
+        }
+    }
 
     function formatDate(date: string) {
         const d = new Date(date)
@@ -241,8 +239,12 @@ export default function EventInfoDisplay({ event }: Props) {
                 </ul>
                 
             </div>
-            <div>
-                Vendors
+            <div className='col-span-3'>
+                <ToDoList 
+                    eventId={event.id}
+                    initialTodos={todos}
+                    onUpdate={refreshTodos}
+                />
             </div>
         </div>
     )

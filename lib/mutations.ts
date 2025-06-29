@@ -160,4 +160,37 @@ export const mutations = {
         });
     },
 
+    async addTodoToEvent(data: {
+        eventId: string;
+        name: string;
+        dueDate?: string;
+    }) {
+        return await prisma.eventTodo.create({
+            data: {
+                name: data.name,
+                eventId: data.eventId,
+                dueDate: data.dueDate ? new Date(data.dueDate) : undefined,
+            },
+        });
+    },
+
+    async updateEventTodo(id: string, data: Partial<{ name: string; dueDate?: string; complete: boolean }>) {
+        const { dueDate, ...rest } = data;
+
+        return await prisma.eventTodo.update({
+            where: { id },
+            data: {
+                ...rest,
+                ...(dueDate !== undefined ? { dueDate: new Date(dueDate) } : {}),
+            },
+        });
+    },
+
+    async deleteEventTodo(id: string) {
+        return await prisma.eventTodo.delete({
+            where: { id },
+        });
+    },
+
+
 };
