@@ -11,22 +11,22 @@ services:
     ports:
       - "5432:5432"
 
-  migrate:
-    build: .
-    command: npx prisma migrate deploy
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/wedding_planner
+  # migrate:
+  #   build: .
+  #   command: npx prisma migrate deploy
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:postgres@localhost:5432/wedding_planner
 
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-      - migrate
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/wedding_planner
-      NEXTAUTH_SECRET: changeme123
-      NEXTAUTH_URL: http://localhost:3000
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db
+  #     - migrate
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:postgres@db:5432/wedding_planner
+  #     NEXTAUTH_SECRET: changeme123
+  #     NEXTAUTH_URL: http://localhost:3000
