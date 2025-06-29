@@ -62,8 +62,15 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 - search GuestBook to add guests
 - change status of RSVP
 
+#### 6.29.25 – Notes and Tasks
+- Markdown note field per event
+- Inline editing with live preview
+- Task list per event with due dates & completion toggle
+
 ## Getting Started
-This is very much a work in progress but this `README` will stay up to date on working features and steps to get it running **in its current state**. That being said if you're interested in starting it as is, you can follow these instructions.
+This app is fully deployable with Docker or runnable in development with Node.
+
+### Development Mode
 
 1. Clone the repo
 ```
@@ -87,7 +94,7 @@ SMTP_FROM_EMAIL=your@email.com
 
 3. Start the database
 ```
-docker compose up -d
+docker compose up -d db
 ```
 
 4. Migrate and Generate the Prima files
@@ -96,7 +103,27 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-5. Install dependencies and start the front end with `npm i && npm run dev` or `bun i && bun dev`
+5. Install dependencies and start app
+```
+npm install
+npm run dev
+```
+
+### Self-Hosted (Production) via Docker
+1. Copy `.env.production`
+Make a copy of your .env as .env.production and customize values.
+
+2. Update `docker-compose.yml`
+Already included in the repo – here's what it does:
+- Runs a postgres:15 container
+- Builds the app from the Dockerfile
+- Runs migrations before starting the frontend
+
+3. Run the app
+```
+docker compose up --build
+```
+This will expose your instance at http://localhost:3000
 
 ## Built With
 - NextJS 15
@@ -105,3 +132,5 @@ npx prisma generate
 - TailwindCSS
 - PostgresDB
 - Docker
+
+### Ready to start planning your wedding or big event? Try it now or contribute ideas via [GitHub Issues](https://github.com/briannelson95/wedding-planner/issues).
