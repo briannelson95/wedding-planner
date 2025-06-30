@@ -1,5 +1,5 @@
 services:
-  db:
+  postgres:
     image: postgres:15
     restart: always
     environment:
@@ -11,22 +11,20 @@ services:
     ports:
       - "5432:5432"
 
-  # migrate:
-  #   build: .
-  #   command: npx prisma migrate deploy
-  #   depends_on:
-  #     - db
-  #   environment:
-  #     DATABASE_URL: postgres://postgres:postgres@localhost:5432/wedding_planner
-
   # app:
   #   build: .
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_URL}
+  #     NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+  #     NEXTAUTH_URL: ${NEXTAUTH_URL}
+  #     NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+  #     SMTP_HOST: ${SMTP_HOST}
+  #     SMTP_PORT: ${SMTP_PORT}
+  #     SMTP_USER: ${SMTP_USER}
+  #     SMTP_PASS: ${SMTP_PASS}
+  #     SMTP_FROM_NAME: ${SMTP_FROM_NAME}
+  #     SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
   #   ports:
   #     - "3000:3000"
-  #   depends_on:
-  #     - db
-  #     - migrate
-  #   environment:
-  #     DATABASE_URL: postgres://postgres:postgres@db:5432/wedding_planner
-  #     NEXTAUTH_SECRET: changeme123
-  #     NEXTAUTH_URL: http://localhost:3000

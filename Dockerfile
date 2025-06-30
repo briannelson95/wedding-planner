@@ -1,46 +1,26 @@
-# Install dependencies
+# 1. Base dependencies layer
 FROM node:20-alpine AS deps
 WORKDIR /app
-
-# Prevent Prisma from generating client prematurely
 ENV PRISMA_GENERATE_SKIP_AUTOMATICALLY=true
-
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Build Prisma client separately
-FROM node:20-alpine AS prisma
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-RUN npx prisma generate
-
-# Build Next.js app
+# 2. Copy source and install wait-for-it
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Install bash (required for wait-for-it)
+RUN apk add --no-cache bash
+
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=prisma /app ./
+COPY . .
 
-RUN npm run build
+# Add wait-for-it.sh script (you can replace this URL with a local copy if you prefer)
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
 
-# Final image
-FROM node:20-alpine AS runner
-WORKDIR /app
+# Generate Prisma Client
+RUN npx prisma generate
 
-ENV NODE_ENV production
-
-# Prevent Next.js telemetry prompt
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Only copy necessary files
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/prisma ./prisma
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+# Run build after DB is ready
+CMD ["sh", "-c", "./wait-for-it.sh postgres:5432 -- npm run build && npm start"]

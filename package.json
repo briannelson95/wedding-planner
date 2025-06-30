@@ -19,6 +19,7 @@
     "next": "15.3.4",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.9.4",
+    "postcss": "^8.5.6",
     "prisma": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -27,7 +28,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
@@ -35,7 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }
 }
