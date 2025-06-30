@@ -48,7 +48,6 @@ export default function EventInfoDisplay({ event }: Props) {
     const [todos, setTodos] = useState(event.todos)
 
     const eventGuests = event.eventGuests
-    console.log(eventGuests)
     
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState('')
@@ -111,8 +110,8 @@ export default function EventInfoDisplay({ event }: Props) {
     }
 
     return (
-        <div className="*:bg-[#00000008] *:p-6 *:rounded-lg *:space-y-4 grid grid-cols-6 gap-4">
-            <div className='col-span-6'>
+        <div className="*:bg-[#00000008] *:p-6 *:rounded-lg *:space-y-4 grid grid-cols-1 md:grid-cols-6 gap-4">
+            <div className='md:col-span-6 order-first'>
                 <div className="flex justify-between items-start col-span-6">
                     <h2 className="text-2xl font-bold">{event.name}</h2>
                     <button
@@ -187,7 +186,7 @@ export default function EventInfoDisplay({ event }: Props) {
                     />
                 </div>
             </div>
-            <div className='col-span-3'>
+            <div className='md:col-span-3 order-3 md:order-2'>
                 <div className='flex justify-between items-center'>
                     <h2 className='text-xl font-semibold'>Guest List</h2>
                     <button
@@ -239,7 +238,7 @@ export default function EventInfoDisplay({ event }: Props) {
                 </ul>
                 
             </div>
-            <div className='col-span-3'>
+            <div className='md:col-span-3 order-2 md:order-3'>
                 <ToDoList 
                     eventId={event.id}
                     initialTodos={todos}
