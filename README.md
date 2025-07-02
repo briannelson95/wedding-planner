@@ -24,6 +24,10 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
     - [x] Add Guests to events
     - [ ] Invite guests via email
     - [ ] Create local account for guest
+    - [x] Bulk upload
+        - Creates GuestBookEntry
+        - Skips dupicates
+        - Updates entries if uploaded more than once
 - [x] Managing RSVP lists
 - [ ] Guest accounts
 - [ ] Gift Registries
@@ -125,6 +129,48 @@ docker compose up --build
 ```
 This will expose your instance at http://localhost:3000
 
+### Advanced Features
+
+#### Bulk Uploading Guests to the Guest Book
+You can quickly populate your Guest Book by uploading a `.csv` file with your guest data. This is useful for importing lists from spreadsheets or other planning tools.
+##### Required Format
+The CSV file must contain the following column headers:
+| Column Name | Required | Description |
+|-------------|----------|-------------|
+|`first` | ✅ Yes | First name of guest|
+|`last` | ✅ Yes | Last name of guest|
+|`side` | ✅ Yes | The side of the couple they are on (e.g., "Bride", "Groom")|
+|`email` | ❌ No | Guest's email address|
+|`phone` | ❌ No | Guest's phone number|
+|`address` | ❌ No | Street address|
+|`notes` | ❌ No | Any special notes or details|
+
+> Only `first`, `last`, and `side` are required — the rest are optional.
+###### Download Example CSV
+To helo you get started, you can download a sample CSV file here:
+[Download sample_guest_upload.csv](public/sample_guest_upload.csv)
+This example includes 2 entries:
+- John Smith (side: Groom)
+- Jane Dow (side: Bride)
+Feel free to use this as a template for formatting your own guest lsit before uploading.
+
+##### Example CSV Content
+```
+first,last,side,email,phone,address,notes
+Alice,Smith,Brian,alice@example.com,555-1234,"123 Main St","Vegetarian"
+Bob,Jones,Kate,bob@example.com,,,
+```
+##### Duplicates
+- Uploads skip exact duplicates (based on first and last name).
+- If a match is found and new information is available (e.g. a phone number), the guest record will be updated automatically.
+
+##### Uploading a File
+1. Navigate to the **Guest Book** page.
+2. Click the "**Upload CSV**" button next to the "**Add Guest**" button.
+3. Select a `.csv` file from your computer.
+4. Confirm the filename is displayed.
+5. Click "**Upload**" — a confirmation will be shown with the number of guests added or updated.
+
 ## Built With
 - NextJS 15
 - NextAuth
@@ -134,3 +180,4 @@ This will expose your instance at http://localhost:3000
 - Docker
 
 ### Ready to start planning your wedding or big event? Try it now or contribute ideas via [GitHub Issues](https://github.com/briannelson95/wedding-planner/issues).
+

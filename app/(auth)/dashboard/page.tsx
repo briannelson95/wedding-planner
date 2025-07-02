@@ -19,7 +19,7 @@ export default async function DashboardPage() {
                         <CreateEventClient />
                     </div>
                     {!events.length && <>You don&apos;t have any events yet. Create your first event.</>}
-                    <div className='grid grid-cols-1 md:grid-cols-3'>
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                         {events.map((item) => (
                             <EventInfoQuickView key={item.id} {...item} />
                         ))}

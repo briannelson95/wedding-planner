@@ -5,6 +5,7 @@ import AddGuestBookEntryModal from '@/components/AddGuestBookEntryModal'
 import GuestBookList from '@/components/GuestBookList'
 import TableIcon from './icons/TableIcon'
 import GuestCardIcon from './icons/GuestCardIcon'
+import BulkUploadGuest from './BulkUploadGuest'
 
 interface GuestBookEntry {
     id: string
@@ -62,7 +63,10 @@ export default function GuestBookPageClient({ entries }: { entries: GuestBookEnt
                         </button>
                     </div>
                 </div>
-                <button onClick={() => setIsOpen(true)} className="btn btn-primary">Add Guest</button>
+                <div className='flex gap-2'>
+                    <button onClick={() => setIsOpen(true)} className="btn btn-primary">Add Guest</button>
+                    <BulkUploadGuest />
+                </div>
             </div>
 
             <GuestBookList view={view} entries={entries} />
