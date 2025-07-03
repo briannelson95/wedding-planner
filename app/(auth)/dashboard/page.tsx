@@ -8,7 +8,9 @@ import React from 'react'
 
 export default async function DashboardPage() {
     const events = await queries.fetchEvents();
-    const guestBookEntries = await queries.fetchGuestBookEntries(5);
+    const guestBookData = await queries.fetchGuestBookEntries({ takeOnlyRecent: 5 });
+
+    const guestBookEntries = Array.isArray(guestBookData) ? guestBookData : guestBookData.entries;
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-7 gap-4'>

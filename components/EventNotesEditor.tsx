@@ -47,7 +47,7 @@ export default function EventNotesEditor({ eventId, initialNotes, canEdit }: Pro
 
     if (!canEdit) {
         return (
-            <div className="p-4 rounded shadow">
+            <div className="p-4 rounded shadow w-full order-last">
                 <h3 className="font-semibold text-lg mb-2">Event Notes</h3>
                 <div className='prose prose-sm dark:prose-invertse'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{notes || '_No notes yet._'}</ReactMarkdown>

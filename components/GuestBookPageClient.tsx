@@ -6,6 +6,7 @@ import GuestBookList from '@/components/GuestBookList'
 import TableIcon from './icons/TableIcon'
 import GuestCardIcon from './icons/GuestCardIcon'
 import BulkUploadGuest from './BulkUploadGuest'
+import { useRouter } from 'next/navigation'
 
 interface GuestBookEntry {
     id: string
@@ -18,9 +19,22 @@ interface GuestBookEntry {
     notes?: string | null
 }
 
-export default function GuestBookPageClient({ entries }: { entries: GuestBookEntry[] }) {
+export default function GuestBookPageClient({ 
+    entries,
+    totalPages,
+    currentPage, 
+}: { 
+    entries: GuestBookEntry[]
+    totalPages: number
+    currentPage: number
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [view, setView] = useState<'CARD' | 'TABLE'>('TABLE')
+    const router = useRouter()
+
+    const handlePageChange = (page: number) => {
+        router.push(`/guest-book?page=${page}`)
+    }
 
     async function handleAddGuest(data: {
         fName: string
@@ -70,6 +84,25 @@ export default function GuestBookPageClient({ entries }: { entries: GuestBookEnt
             </div>
 
             <GuestBookList view={view} entries={entries} />
+
+            {totalPages > 1 && (
+                <div className='flex justify-center gap-2 mt-6'>
+                    {[...Array(totalPages)].map((_, idx) => {
+                        const pageNum = idx + 1
+                        return (
+                        <button
+                            key={pageNum}
+                            onClick={() => handlePageChange(pageNum)}
+                            className={`px-3 py-1 border rounded hover:cursor-pointer ${
+                            currentPage === pageNum ? 'bg-brand-primary-600 text-white' : 'bg-white'
+                            }`}
+                        >
+                            {pageNum}
+                        </button>
+                        )
+                    })}
+                </div>
+            )}
 
             <AddGuestBookEntryModal
                 isOpen={isOpen}

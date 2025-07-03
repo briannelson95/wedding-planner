@@ -7,6 +7,8 @@ import AddGuestFromGuestBook from './AddGuestFromGuestBook'
 import EventNotesEditor from './EventNotesEditor'
 import ToDoList from './ToDoList'
 import { fetchEventTodos } from '@/lib/helper/fetchTodos'
+import EventHeader from './events/EventHeader'
+import { getDaysUntilEvent } from '@/lib/helper/getDaysUntilEvent'
 
 interface Creator {
     id: string
@@ -48,6 +50,7 @@ export default function EventInfoDisplay({ event }: Props) {
     const [todos, setTodos] = useState(event.todos)
 
     const eventGuests = event.eventGuests
+    console.log(eventGuests)
     
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState('')
@@ -109,11 +112,26 @@ export default function EventInfoDisplay({ event }: Props) {
         return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
     }
 
+    const attendingGuests = eventGuests.filter((g) => g.rsvp === 'YES');
+    const notAttendingGuests = eventGuests.filter((g) => g.rsvp === 'NO');
+    const pendingGuests = eventGuests.filter((g) => g.rsvp === 'PENDING');
+
+    let daysLeft
+
+    if (event.date !== null) {
+        daysLeft = getDaysUntilEvent(event.date);
+    }
+
     return (
         <div className="*:bg-[#00000008] *:p-6 *:rounded-lg *:space-y-4 grid grid-cols-1 md:grid-cols-6 gap-4">
             <div className='md:col-span-6 order-first'>
+                {/* <EventHeader
+                    name={event.name}
+                    date={event.date}
+                    location={event.location}
+                /> */}
                 <div className="flex justify-between items-start col-span-6">
-                    <h2 className="text-2xl font-bold">{event.name}</h2>
+                    <h2 className="text-3xl font-bold">{event.name}</h2>
                     <button
                         onClick={() => setIsEditing(prev => !prev)}
                         className="text-sm text-brand-primary-600 underline"
@@ -134,7 +152,7 @@ export default function EventInfoDisplay({ event }: Props) {
                                 onChange={(e) => setDateTime(e.target.value)}
                             />
                         ) : (
-                            <p>{event.date ? formatDate(event.date.toDateString()) : 'N/A'}</p>
+                            <p>{event.date ? event.date.toDateString() : 'N/A'}</p>
                         )}
                     </div>
 
@@ -153,17 +171,45 @@ export default function EventInfoDisplay({ event }: Props) {
                             <p>{event.location || 'N/A'}</p>
                         )}
                     </div>
-
-                    {/* Creator Email */}
-                    <div>
-                        <label className="block text-sm font-semibold">Creator Email</label>
+                    {/* <div className="md:col-span-2 flex gap-1 text-xs w-full justify-end">
+                        <label>Created by</label>
                         <p>{event.creator.email}</p>
-                    </div>
-
-                    {/* Created At */}
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold">Created At</label>
+                        <label>at</label>
                         <p>{formatDate(event.createdAt)}</p>
+                    </div> */}
+                    <div className='grid grid-cols-2 gap-2'>
+                        <div className='border border-brand-text-800 rounded-lg p-2 col-span-1'>
+                            <h3 className='text-lg font-semibold'>Guest Summary</h3>
+                            <div className=''>
+                                <div className='flex justify-between'>
+                                    <p>Invited</p>
+                                    <p className='font-bold'>{eventGuests.length}</p>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <p>Attending</p>
+                                    <p className='font-bold'>{attendingGuests.length}</p>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <p>Declined</p>
+                                    <p className='font-bold'>{notAttendingGuests.length}</p>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <p>No Response</p>
+                                    <p className='font-bold'>{pendingGuests.length}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='border border-brand-text-800 rounded-lg p-2 col-span-1'>
+                            <h3 className='text-lg font-semibold'>Countdown</h3>
+                            <div className=''>
+                                {daysLeft && daysLeft > 0 
+                                    ? `${daysLeft} day${daysLeft !== 1 ? 's' : ''} until the event`
+                                    : daysLeft === 0 
+                                        ? 'Today is the big day!'
+                                        : `This event happened ${Math.abs(daysLeft)} day${Math.abs(daysLeft) !== 1 ? 's' : ''} ago`
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -178,13 +224,6 @@ export default function EventInfoDisplay({ event }: Props) {
                         </button>
                     </div>
                 )}
-                <div className='col-span-6'>
-                    <EventNotesEditor
-                        eventId={event.id}
-                        initialNotes={event.notes || ''}
-                        canEdit={['COUPLE', 'PLANNER'].includes(event.creator.role)}
-                    />
-                </div>
             </div>
             <div className='md:col-span-3 order-3 md:order-2'>
                 <div className='flex justify-between items-center'>
@@ -243,6 +282,13 @@ export default function EventInfoDisplay({ event }: Props) {
                     eventId={event.id}
                     initialTodos={todos}
                     onUpdate={refreshTodos}
+                />
+            </div>
+            <div className='col-span-6 order-last'>
+                <EventNotesEditor
+                    eventId={event.id}
+                    initialNotes={event.notes || ''}
+                    canEdit={['COUPLE', 'PLANNER'].includes(event.creator.role)}
                 />
             </div>
         </div>
