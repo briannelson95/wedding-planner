@@ -11,7 +11,7 @@ export default async function GuestBookPage({ searchParams }: { searchParams: { 
 
     const guestBookData = await queries.fetchGuestBookEntries({
         page: currentPage,
-        pageSize: 10,
+        pageSize: 20,
     })
 
     const { entries, totalPages, currentPage: verifiedPage } = !Array.isArray(guestBookData)

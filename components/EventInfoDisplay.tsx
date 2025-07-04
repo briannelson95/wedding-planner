@@ -116,7 +116,7 @@ export default function EventInfoDisplay({ event }: Props) {
     const notAttendingGuests = eventGuests.filter((g) => g.rsvp === 'NO');
     const pendingGuests = eventGuests.filter((g) => g.rsvp === 'PENDING');
 
-    let daysLeft
+    let daysLeft: number | undefined
 
     if (event.date !== null) {
         daysLeft = getDaysUntilEvent(event.date);
@@ -202,11 +202,11 @@ export default function EventInfoDisplay({ event }: Props) {
                         <div className='border border-brand-text-800 rounded-lg p-2 col-span-1'>
                             <h3 className='text-lg font-semibold'>Countdown</h3>
                             <div className=''>
-                                {daysLeft && daysLeft > 0 
+                                {daysLeft !== undefined && daysLeft > 0 
                                     ? `${daysLeft} day${daysLeft !== 1 ? 's' : ''} until the event`
                                     : daysLeft === 0 
                                         ? 'Today is the big day!'
-                                        : `This event happened ${Math.abs(daysLeft)} day${Math.abs(daysLeft) !== 1 ? 's' : ''} ago`
+                                        : `This event happened ${daysLeft !== undefined && Math.abs(daysLeft)} day${daysLeft !== undefined && Math.abs(daysLeft) !== 1 ? 's' : ''} ago`
                                 }
                             </div>
                         </div>

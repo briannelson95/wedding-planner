@@ -94,6 +94,7 @@ model EventTodo {
     name        String
     complete    Boolean  @default(false)
     dueDate     DateTime?
+    notes       String?
     event       Event    @relation(fields: [eventId], references: [id])
     eventId     String
     createdAt   DateTime @default(now())

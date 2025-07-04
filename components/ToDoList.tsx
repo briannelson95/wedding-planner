@@ -6,6 +6,7 @@ interface Todo {
     name: string
     complete: boolean
     dueDate?: string | null
+    notes?: string | null
 }
 
 interface Props {
@@ -18,6 +19,8 @@ export default function ToDoList({ eventId, initialTodos, onUpdate }: Props) {
     const [todos, setTodos] = useState(initialTodos)
     const [newName, setNewName] = useState('')
     const [newDueDate, setNewDueDate] = useState('')
+    const [editingNoteId, setEditingNoteId] = useState<string | null>(null)
+    const [noteDraft, setNoteDraft] = useState('')
 
     async function handleAdd() {
         if (!newName.trim()) return
@@ -65,6 +68,25 @@ export default function ToDoList({ eventId, initialTodos, onUpdate }: Props) {
         if (onUpdate) await onUpdate()
     }
 
+    async function saveNote(id: string) {
+        const res = await fetch(`/api/events/${eventId}/todo/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notes: noteDraft }),
+        })
+
+        if (res.ok) {
+            setTodos(prev =>
+                prev.map(todo =>
+                todo.id === id ? { ...todo, notes: noteDraft } : todo
+                )
+            )
+            setEditingNoteId(null)
+            setNoteDraft('')
+        }
+        if (onUpdate) await onUpdate()
+    }
+
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-semibold">To Do List</h2>
@@ -82,33 +104,85 @@ export default function ToDoList({ eventId, initialTodos, onUpdate }: Props) {
                     value={newDueDate}
                     onChange={e => setNewDueDate(e.target.value)}
                 />
-                <button className="btn btn-primary" onClick={handleAdd}>Add</button>
+                <button className="btn btn-primary" onClick={handleAdd}>
+                    Add
+                </button>
             </div>
 
             <ul className="space-y-2">
                 {todos.map(todo => (
                     <li
                         key={todo.id}
-                        className="flex items-center justify-between p-3 bg-[#00000010] rounded-lg"
+                        className="flex flex-col gap-1 p-3 bg-[#00000010] rounded-lg"
                     >
-                        <div className="flex items-center gap-2">
-                            <input
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <input
                                 type="checkbox"
                                 checked={todo.complete}
                                 onChange={e => toggleComplete(todo.id, e.target.checked)}
-                            />
-                            <span className={todo.complete ? 'line-through text-gray-400' : ''}>
+                                />
+                                <span className={todo.complete ? 'line-through text-gray-400' : ''}>
                                 {todo.name}
-                            </span>
-                            {todo.dueDate && (
-                                <span className="text-sm text-gray-500 ml-2">
-                                (Due {new Date(todo.dueDate).toLocaleDateString()})
                                 </span>
+                                {todo.dueDate && (
+                                <span className="text-sm text-gray-500 ml-2">
+                                    (Due {new Date(todo.dueDate).toLocaleDateString()})
+                                </span>
+                                )}
+                            </div>
+                            <button
+                                className="text-red-500 text-sm"
+                                onClick={() => handleDelete(todo.id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+
+                        {/* Notes Section */}
+                        <div className="mt-1 text-sm text-gray-700">
+                            {editingNoteId === todo.id ? (
+                                <div className="space-y-1">
+                                    <textarea
+                                        className="textarea textarea-bordered w-full"
+                                        value={noteDraft}
+                                        onChange={e => setNoteDraft(e.target.value)}
+                                        rows={2}
+                                    />
+                                    <div className="flex gap-2">
+                                        <button
+                                            className="btn btn-sm btn-primary"
+                                            onClick={() => saveNote(todo.id)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="btn btn-sm"
+                                            onClick={() => {
+                                                setEditingNoteId(null)
+                                                setNoteDraft('')
+                                            }}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div
+                                    className="cursor-pointer text-gray-600"
+                                    onClick={() => {
+                                        setEditingNoteId(todo.id)
+                                        setNoteDraft(todo.notes || '')
+                                    }}
+                                >
+                                    {todo.notes ? (
+                                        <span>{todo.notes}</span>
+                                    ) : (
+                                        <span className="italic text-gray-400">Add note...</span>
+                                    )}
+                                </div>
                             )}
                         </div>
-                        <button className="text-red-500 text-sm" onClick={() => handleDelete(todo.id)}>
-                            Delete
-                        </button>
                     </li>
                 ))}
             </ul>

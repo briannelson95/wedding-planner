@@ -7,7 +7,7 @@ export default async function EventsPage() {
     console.log(allEvents)
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10 space-y-6">
+        <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold">Your Events</h1>
                 <Link href="/events/create" className="btn btn-primary">

@@ -8,7 +8,7 @@ export default async function SingleEventPage({ params }: { params: { eventId: s
     console.log(data)
     
     return (
-        <div className='max-w-[100rem] mx-auto'>
+        <div className=''>
             {data ? (
                 // @ts-ignore
                 <EventInfoDisplay event={data} />

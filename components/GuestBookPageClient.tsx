@@ -64,7 +64,7 @@ export default function GuestBookPageClient({
     }
 
     return (
-        <div className='max-w-6xl mx-auto mt-8 space-y-4'>
+        <div className='space-y-4'>
             <div className="flex justify-between items-center">
                 <div className='flex gap-5'>
                     <h1 className='text-2xl font-bold'>Guest Book</h1>
