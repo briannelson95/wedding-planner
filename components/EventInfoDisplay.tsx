@@ -50,7 +50,7 @@ export default function EventInfoDisplay({ event }: Props) {
     const [todos, setTodos] = useState(event.todos)
 
     const eventGuests = event.eventGuests
-    console.log(eventGuests)
+    // console.log(eventGuests)
     
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState('')

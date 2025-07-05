@@ -66,9 +66,6 @@ export default function EventNotesEditor({ eventId, initialNotes, canEdit }: Pro
 
     return (
         <div>
-            <p className='text-sm font-semibold mb-1 flex gap-1 items-center'>
-                Notes 
-            </p>
             <div
                 className="prose prose-brand rounded-lg textarea-bordered p-4 w-full min-h-[120px] cursor-text"
                 onClick={() => {
