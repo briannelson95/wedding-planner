@@ -6,19 +6,17 @@ export default async function SingleEventPage({ params }: { params: { eventId: s
     const data = await queries.singleEvent(params.eventId)
     
     return (
-        <>
-        <EventDashboard 
-            event={data}
-        />
-        {/* <div className=''>
+        <div className=''>
             
             {data ? (
-                // @ts-ignore
-                <EventInfoDisplay event={data} />
+                <EventDashboard 
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    //@ts-expect-error
+                    event={data}
+                />
             ) : (
                 <p className="text-center text-gray-500 mt-10">Event not found.</p>
             )}
-        </div> */}
-        </>
+        </div> 
     )
 }

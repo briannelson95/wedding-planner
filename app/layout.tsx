@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Wedding Planner",
@@ -18,6 +19,7 @@ export default async function RootLayout({
         className="bg-brand-background text-brand-text"
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

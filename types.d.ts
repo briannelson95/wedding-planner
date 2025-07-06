@@ -53,3 +53,14 @@ interface EventData {
     eventGuests: any[]
     todos: Todo[] 
 }
+
+interface EventGuest {
+    id: string
+    guestId: string
+    rsvp: 'YES' | 'NO' | 'PENDING'
+    guest: {
+        fName: string
+        lName: string
+        email?: string | null
+    }
+}

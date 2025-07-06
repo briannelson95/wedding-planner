@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import EventInfo from './EventInfo'
 import EventRsvpTracking from './EventRsvpTracking'
-import EventToDoList from './EventToDoList'
 import ToDoList from '../ToDoList'
 import { fetchEventTodos } from '@/lib/helper/fetchTodos'
 

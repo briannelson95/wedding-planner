@@ -1,12 +1,30 @@
-'use client'
 import React from 'react'
 import { Card, CardContent } from '../ui/card'
-import { Button } from '../ui/button'
+import EventRsvpModal from './EventRsvpModal'
 
-export default function EventRsvpTracking({ eventGuests }: EventData) {
+interface GuestBookEntry {
+  id: string
+  fName: string
+  lName: string
+}
+
+interface EventGuest {
+  id: string
+  rsvp: 'YES' | 'NO' | 'PENDING'
+  eventId: string
+  guestBookEntryId: string
+  guestBookEntry: GuestBookEntry
+}
+
+interface Props {
+  eventGuests: EventGuest[]
+}
+
+export default function EventRsvpTracking({ eventGuests }: Props) {
     const attendingGuests = eventGuests.filter((g) => g.rsvp === 'YES');
     const notAttendingGuests = eventGuests.filter((g) => g.rsvp === 'NO');
     const pendingGuests = eventGuests.filter((g) => g.rsvp === 'PENDING');
+
     return (
         <Card className='py-0'>
             <CardContent className='p-4'>
@@ -29,7 +47,7 @@ export default function EventRsvpTracking({ eventGuests }: EventData) {
                         <p className='text-2xl font-bold'>{pendingGuests.length}</p>
                     </div>
                 </div>
-                <Button variant="secondary" className="mt-4 hover:cursor-pointer hover:bg-brand-primary-900">Manage Guest List</Button>
+                <EventRsvpModal eventGuests={eventGuests} />
             </CardContent>
         </Card>
     )
