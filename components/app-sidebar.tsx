@@ -19,9 +19,7 @@ import {
   IconUsers,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -32,8 +30,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { UserContext } from "@/context/UserContext"
 
 const data = {
   navMain: [
@@ -138,8 +136,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const session = useSession()
-  const user = session.data?.user
+  const { currentUser } = React.useContext(UserContext)
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -162,9 +159,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
-      {session && (
+      {currentUser && (
         <SidebarFooter>
-          <NavUser user={user} />
+          <NavUser user={currentUser} />
         </SidebarFooter>
       )}
       

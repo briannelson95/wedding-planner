@@ -34,10 +34,10 @@ interface Todo {
     name: string
     complete: boolean
     dueDate?: string | null
-    createdAt: string
-    updatedAt?: string
-    dueDate?: string | null
     notes?: string | null
+    eventId: string
+    createdAt: string
+    updatedAt: string
 }
 
 interface EventData {
@@ -63,4 +63,12 @@ interface EventGuest {
         lName: string
         email?: string | null
     }
+}
+
+type User = {
+    id: string
+    email: string
+    name?: string
+    username: string
+    role: 'COUPLE' | 'PLANNER' | 'GUEST'    
 }

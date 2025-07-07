@@ -2,13 +2,17 @@
 import React, { useState } from 'react'
 import { Card, CardContent } from './ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import EventTaskCalendar from './events/EventTaskCalendar'
 
 interface Todo {
-    id: string
-    name: string
-    complete: boolean
-    dueDate?: string | null
-    notes?: string | null
+  id: string
+  name: string
+  complete: boolean
+  dueDate?: string | null
+  notes?: string | null
+  eventId: string
+  createdAt: string
+  updatedAt: string
 }
 
 interface Props {
@@ -195,8 +199,10 @@ export default function  ToDoList({ eventId, initialTodos, onUpdate }: Props) {
                         </div>
                     </TabsContent>
                     <TabsContent value='calendar'>
-                        <div className="grid grid-cols-7 gap-1 text-xs">
-                            
+                        <div className=''>
+                            <EventTaskCalendar
+                                todos={todos}
+                            />
                         </div>
                     </TabsContent>
                 </Tabs>

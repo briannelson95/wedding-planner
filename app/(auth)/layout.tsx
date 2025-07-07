@@ -1,16 +1,28 @@
 'use client'
 
 import { SessionProvider } from 'next-auth/react'
-import { ReactNode } from 'react'
-import DashboardNavbar from '@/components/DashboardNavbar'
+import { ReactNode, useContext } from 'react'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { SiteHeader } from '@/components/site-header'
+import { UserContext } from '@/context/UserContext'
+import { redirect } from 'next/navigation'
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
+    const { currentUser, loading } = useContext(UserContext)
+
+    if (loading) {
+        return <>Loading...</>
+    }
+
+    if (!currentUser) {
+        redirect('/login')
+    }
+
+    console.log(currentUser)
     
     return (
-        <>
+        <main>
             <SessionProvider>
                 <SidebarProvider
                     style={
@@ -33,6 +45,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                     </SidebarInset>
                 </SidebarProvider>
             </SessionProvider>
-        </>
+        </main>
     )
 }

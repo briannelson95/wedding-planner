@@ -122,4 +122,12 @@ export const queries = {
         }
     },
 
+    async fetchCurrentUser(id: string | null) {
+        if (!id) return
+
+        return await prisma.user.findUnique({
+            where: { id },
+        })
+    }
+
 }

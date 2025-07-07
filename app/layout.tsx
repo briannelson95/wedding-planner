@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Provider from "@/components/auth/Provider";
+import { UserContextProvider } from "@/context/UserContext";
 
 export const metadata: Metadata = {
   title: "Wedding Planner",
@@ -18,8 +20,12 @@ export default async function RootLayout({
       <body
         className="bg-brand-background text-brand-text"
       >
-        {children}
-        <Toaster />
+        <Provider>
+          <UserContextProvider>
+            {children}
+          </UserContextProvider>
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );
