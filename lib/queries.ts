@@ -9,8 +9,9 @@ export const queries = {
                         id: true,
                         username: true
                     }
-                }
-            }
+                },
+                location: true
+            },
         })
         
         return allEvents;
@@ -74,6 +75,7 @@ export const queries = {
                 todos: {
                     orderBy: { dueDate: 'asc' },
                 },
+                location: true
             }
         })
         return event

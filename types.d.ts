@@ -15,7 +15,7 @@ interface EventProps {
     id: string
     name: string
     date?: Date | null
-    location?: string | null
+    location?: EventLocation | null
     creator: { id: string; username: string; }
     createdAt: Date; date: Date | null;
     creatorId: string; 
@@ -44,7 +44,7 @@ interface EventData {
     id: string
     name: string
     date: Date | null
-    location: string | null
+    location: EventLocation | null
     creatorId: string
     createdAt: string
     creator: Creator
@@ -71,4 +71,15 @@ type User = {
     name?: string
     username: string
     role: 'COUPLE' | 'PLANNER' | 'GUEST'    
+}
+
+interface EventLocation {
+    id: string
+    name: string
+    address: string
+    city: string
+    state: string
+    country: string
+    phone: string | null
+    email: string | null
 }

@@ -28,14 +28,29 @@ model Event {
     id          String   @id @default(cuid())
     name        String
     date        DateTime?
-    location    String?
+    location    Location? @relation(fields: [locationid], references: [id])
+    locationid  String?
     creator     User     @relation("EventCreator", fields: [creatorId], references: [id])
     creatorId   String
     guests      Guest[]
     eventGuests EventGuest[] 
     notes       String?
-    todos        EventTodo[]
+    todos       EventTodo[]
     createdAt   DateTime @default(now())
+}
+
+model Location {
+    id          String  @id @default(cuid())
+    name        String
+    address     String
+    city        String
+    state       String
+    postalCode  String
+    country     String  @default("United States")
+    phone       String?
+    email       String?
+
+    Event Event[]
 }
 
 model Guest {
