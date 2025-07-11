@@ -11,6 +11,10 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
+  # app:
+  #   volumes:
+  #     - ./data/uploads:/app/data/uploads
+
 volumes:
   pgdata:
 

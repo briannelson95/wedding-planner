@@ -16,6 +16,8 @@ model User {
     role      Role     @default(GUEST)
     events    Event[]  @relation("EventCreator")
     createdAt DateTime @default(now())
+
+    FileUpload FileUpload[]
 }
 
 enum Role {
@@ -37,6 +39,8 @@ model Event {
     notes       String?
     todos       EventTodo[]
     createdAt   DateTime @default(now())
+
+    FileUpload FileUpload[]
 }
 
 model Location {
@@ -118,4 +122,19 @@ model EventTodo {
     // Optional for future extensibility
     // category   String? 
     // assignedTo String? // could link to User in future
+}
+
+model FileUpload {
+    id              String      @id @default(cuid())
+    filepath        String
+    filename        String
+    filetype        String
+    filesize        Int     //in bytes
+    uploadedAt      DateTime    @default(now())
+    uploadedBy      User        @relation(fields: [uploadedById], references: [id])
+    uploadedById    String
+    event           Event?      @relation(fields: [eventId], references: [id])
+    eventId         String?
+
+    @@unique([filename, uploadedById])
 }
