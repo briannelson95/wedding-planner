@@ -73,7 +73,10 @@ export const queries = {
                     },
                 },
                 todos: {
-                    orderBy: { dueDate: 'asc' },
+                    orderBy: [
+                        { complete: 'asc' },
+                        { dueDate: 'asc' },
+                    ],
                 },
                 location: true
             }
