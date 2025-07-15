@@ -133,6 +133,10 @@ export const queries = {
         return await prisma.user.findUnique({
             where: { id },
         })
-    }
+    },
+
+    async fetchAllLocations() {
+        return await prisma.location.findMany()
+    },
 
 }

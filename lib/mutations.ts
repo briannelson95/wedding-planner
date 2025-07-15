@@ -192,5 +192,29 @@ export const mutations = {
         });
     },
 
+    async createEventLocation(data: {
+        name: string,
+        address: string,
+        city: string,
+        state: string,
+        postalCode: string,
+        country: string,
+        phone?: string,
+        email?: string,
+    }) {
+        return await prisma.location.create({
+            data: {
+                name: data.name,
+                address: data.address,
+                city: data.city,
+                state: data.state,
+                postalCode: data.postalCode,
+                country: data.country || 'United States',
+                phone: data.phone,
+                email: data.email
+            }
+        })
+    }
+
 
 };

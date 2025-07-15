@@ -2,14 +2,10 @@
 
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
+  IconBuildingArch,
   IconDashboard,
   IconDatabase,
-  IconFileAi,
-  IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
@@ -49,6 +45,11 @@ const data = {
       title: "Guest Book",
       url: "/guest-book",
       icon: IconUsers,
+    },
+    {
+      title: "Locations",
+      url: "/locations",
+      icon: IconBuildingArch,
     },
   ],
   // navClouds: [

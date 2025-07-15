@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import EditGuestBookEntryModal from './EditGuestBookEntryModal'
+// import GuestBookTable from './tables/GuestBookTable'
 
 interface GuestBookEntry {
     id: string
@@ -63,36 +64,39 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
     return (
         <div className='space-y-4'>
             {view === 'TABLE' ? (
-                <div className='overflow-hidden rounded-xl'>
-                    <table className='table-auto w-full mb-16 p-4'>
-                        <thead className='bg-brand-primary text-brand-background border border-brand-primary'>
-                            <tr className='text-left'>
-                                <th className='px-4 py-2'>Name</th>
-                                <th className='px-4 py-2'>Email</th>
-                                <th className='px-4 py-2'>Phone</th>
-                                <th className='px-4 py-2'>Address</th>
-                                <th className='px-4 py-2'>Congratulated Engagement</th>
-                                <th className='px-4 py-2'>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody className=''>
-                            {entries.map(entry => (
-                                <tr
-                                    key={entry.id}
-                                    className='odd:bg-brand-primary-900 even:bg-brand-primary-950 hover:cursor-pointer hover:bg-brand-primary-700 hover:text-brand-background transition-colors duration-50'
-                                    onClick={() => setEditingEntry(entry)}
-                                >
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.fName + ' ' + entry.lName} <span className='text-sm'>(Side: {entry.side})</span></td>
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.email || 'N/A'}</td>
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.phone || 'N/A'}</td>
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.address || 'N/A'}</td>
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.congratulated == true ? 'Yes' : "No"}</td>
-                                    <td className='border border-brand-primary px-4 py-2'>{entry.notes || 'N/A'}</td>
+                <>
+                    <div className='overflow-hidden rounded-xl'>
+                        <table className='table-auto w-full mb-16 p-4'>
+                            <thead className='bg-brand-primary text-brand-background border border-brand-primary'>
+                                <tr className='text-left'>
+                                    <th className='px-4 py-2'>Name</th>
+                                    <th className='px-4 py-2'>Email</th>
+                                    <th className='px-4 py-2'>Phone</th>
+                                    <th className='px-4 py-2'>Address</th>
+                                    <th className='px-4 py-2'>Congratulated Engagement</th>
+                                    <th className='px-4 py-2'>Notes</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody className=''>
+                                {entries.map(entry => (
+                                    <tr
+                                        key={entry.id}
+                                        className='odd:bg-brand-primary-900 even:bg-brand-primary-950 hover:cursor-pointer hover:bg-brand-primary-700 hover:text-brand-background transition-colors duration-50'
+                                        onClick={() => setEditingEntry(entry)}
+                                    >
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.fName + ' ' + entry.lName} <span className='text-sm'>(Side: {entry.side})</span></td>
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.email || 'N/A'}</td>
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.phone || 'N/A'}</td>
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.address || 'N/A'}</td>
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.congratulated == true ? 'Yes' : "No"}</td>
+                                        <td className='border border-brand-primary px-4 py-2'>{entry.notes || 'N/A'}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {/* <GuestBookTable guestBookEntries={entries} /> */}
+                </>
             ) : (
                 <div className='space-y-4 mx-auto'>
                     <div className='grid grid-cols-3 gap-4 w-full'>
