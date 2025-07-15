@@ -10,6 +10,7 @@ interface GuestBookEntry {
     email?: string | null
     phone?: string | null
     address?: string | null
+    congratulated?: boolean | null
     notes?: string | null
 }
 
@@ -27,6 +28,7 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
         email?: string
         phone?: string
         address?: string
+        congratulated?: boolean | null
         side?: string
         notes?: string
     }) {
@@ -40,6 +42,7 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
                     email: updated.email,
                     phone: updated.phone,
                     address: updated.address,
+                    congratulated: updated.congratulated,
                     side: updated.side,
                     notes: updated.notes,
                 }),
@@ -68,6 +71,7 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
                                 <th className='px-4 py-2'>Email</th>
                                 <th className='px-4 py-2'>Phone</th>
                                 <th className='px-4 py-2'>Address</th>
+                                <th className='px-4 py-2'>Congratulated Engagement</th>
                                 <th className='px-4 py-2'>Notes</th>
                             </tr>
                         </thead>
@@ -82,6 +86,7 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
                                     <td className='border border-brand-primary px-4 py-2'>{entry.email || 'N/A'}</td>
                                     <td className='border border-brand-primary px-4 py-2'>{entry.phone || 'N/A'}</td>
                                     <td className='border border-brand-primary px-4 py-2'>{entry.address || 'N/A'}</td>
+                                    <td className='border border-brand-primary px-4 py-2'>{entry.congratulated == true ? 'Yes' : "No"}</td>
                                     <td className='border border-brand-primary px-4 py-2'>{entry.notes || 'N/A'}</td>
                                 </tr>
                             ))}
@@ -122,6 +127,7 @@ export default function GuestBookList({ entries, view }: { entries: GuestBookEnt
                         email: editingEntry.email || '',
                         phone: editingEntry.phone || '',
                         address: editingEntry.address || '',
+                        congratulated: editingEntry.congratulated,
                         side: editingEntry.side,
                         notes: editingEntry.notes || '',
                     }}

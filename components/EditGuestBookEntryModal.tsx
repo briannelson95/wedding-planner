@@ -13,6 +13,7 @@ export default function EditGuestBookEntryModal({ isOpen, onClose, initialData, 
         email?: string
         phone?: string
         address?: string
+        congratulated?: boolean | null
         side?: string
         notes?: string
     }
@@ -109,6 +110,21 @@ export default function EditGuestBookEntryModal({ isOpen, onClose, initialData, 
                                     value={formData.address || ''}
                                     onChange={handleChange}
                                 />
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        name="congratulated"
+                                        checked={!!formData.congratulated}
+                                        onChange={(e) =>
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            congratulated: e.target.checked,
+                                        }))
+                                        }
+                                        className="checkbox"
+                                    />
+                                    <label htmlFor="congratulated">Congratulated</label>
+                                </div>
                                 <input
                                     className="input input-bordered w-full"
                                     type="text"

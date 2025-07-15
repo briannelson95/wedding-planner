@@ -84,16 +84,17 @@ model InviteToken {
 }
 
 model GuestBookEntry {
-    id        String   @id @default(cuid())
-    fName     String
-    lName     String
-    email     String?
-    phone     String?
-    address   String?
-    notes     String?
-    side      String   // e.g., "Brian", "Janice", etc.
-    eventGuests    EventGuest[] 
-    createdAt DateTime @default(now())
+    id              String      @id @default(cuid())
+    fName           String
+    lName           String
+    email           String?
+    phone           String?
+    address         String?
+    notes           String?
+    side            String
+    congratulated   Boolean?       
+    eventGuests     EventGuest[] 
+    createdAt       DateTime    @default(now())
 }
 
 model EventGuest {

@@ -97,33 +97,33 @@ export const queries = {
     }) {
         // ⏱ Quick recent entries (e.g., homepage)
         if (takeOnlyRecent) {
-        const entries = await prisma.guestBookEntry.findMany({
-            take: takeOnlyRecent,
-            orderBy: { createdAt: 'desc' },
-        })
-        return entries
+            const entries = await prisma.guestBookEntry.findMany({
+                take: takeOnlyRecent,
+                orderBy: { createdAt: 'desc' },
+            })
+            return entries
         }
 
         // 📄 Paginated GuestBook view
         const skip = ((page ?? 1) - 1) * pageSize
 
         const [entries, totalCount] = await Promise.all([
-        prisma.guestBookEntry.findMany({
-            skip,
-            take: pageSize,
-            orderBy: newestFirst
-            ? { createdAt: 'desc' }
-            : [{ lName: 'asc' }, { fName: 'asc' }],
-        }),
-        prisma.guestBookEntry.count(),
+            prisma.guestBookEntry.findMany({
+                skip,
+                take: pageSize,
+                orderBy: newestFirst
+                ? { createdAt: 'desc' }
+                : [{ lName: 'asc' }, { fName: 'asc' }],
+            }),
+            prisma.guestBookEntry.count(),
         ])
 
         const totalPages = Math.ceil(totalCount / pageSize)
 
         return {
-        entries,
-        totalPages,
-        currentPage: page ?? 1,
+            entries,
+            totalPages,
+            currentPage: page ?? 1,
         }
     },
 
