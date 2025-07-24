@@ -75,8 +75,9 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 **Major Update**
 - Added Venues
     - Venues are significant locations which can be added to an event.
+
 | Column | Default | Required | Type |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | Name | null | Yes | String |
 | Address | null | Yes | String |
 | City/Town | null | Yes | String |
