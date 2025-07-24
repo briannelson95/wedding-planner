@@ -10,11 +10,35 @@ export const queries = {
                         username: true
                     }
                 },
-                location: true
+                venue: true
             },
         })
         
         return allEvents;
+    },
+
+    async fetchQuickViewEvents() {
+        const events = await prisma.event.findMany({
+            take: 3,
+            select: {
+                id: true,
+                name: true,
+                date: true,
+                creator: {
+                    select: {
+                        id: true,
+                        username: true,
+                    }
+                },
+                venue: {
+                    select: {
+                        name: true,
+                    },
+                },
+            }
+        })
+
+        return events
     },
 
     async fetchEventGuests(eventId: string) {
@@ -78,7 +102,7 @@ export const queries = {
                         { dueDate: 'asc' },
                     ],
                 },
-                location: true
+                venue: true
             }
         })
         return event
@@ -136,7 +160,7 @@ export const queries = {
     },
 
     async fetchAllLocations() {
-        return await prisma.location.findMany()
+        return await prisma.venue.findMany()
     },
 
 }

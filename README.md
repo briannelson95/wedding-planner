@@ -71,6 +71,23 @@ My goal for this project is to be an all-in-one self hosted event planner for ma
 - Inline editing with live preview
 - Task list per event with due dates & completion toggle
 
+#### 7.24.25 – Notes and Tasks
+**Major Update**
+- Added Venues
+    - Venues are significant locations which can be added to an event.
+| Column | Default | Required | Type |
+| --- | --- | --- | --- |
+| Name | null | Yes | String |
+| Address | null | Yes | String |
+| City/Town | null | Yes | String |
+| State | null | Yes | String |
+| Postal/Area Code | null | Yes | String |
+| Country | 'United States' | Yes | String |
+| Phone | null | No | String |
+| Email | null | No | String |
+- UI changes to Dashboard to make use of Shadcn components
+
+
 ## Getting Started
 This app is fully deployable with Docker or runnable in development with Node.
 

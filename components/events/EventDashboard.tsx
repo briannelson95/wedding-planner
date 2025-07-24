@@ -13,7 +13,7 @@ interface Props {
 export default function EventDashboard({ event }: Props) {
     const [todos, setTodos] = useState(event.todos)
 
-     async function refreshTodos() {
+    async function refreshTodos() {
         try {
             const data = await fetchEventTodos(event.id)
             setTodos(data)
@@ -21,8 +21,6 @@ export default function EventDashboard({ event }: Props) {
             console.error('Failed to refresh todos:', err)
         }
     }
-
-    console.log(todos)
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>

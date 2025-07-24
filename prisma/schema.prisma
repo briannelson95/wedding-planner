@@ -30,8 +30,8 @@ model Event {
     id          String   @id @default(cuid())
     name        String
     date        DateTime?
-    location    Location? @relation(fields: [locationid], references: [id])
-    locationid  String?
+    venue       Venue? @relation(fields: [venueId], references: [id])
+    venueId     String?
     creator     User     @relation("EventCreator", fields: [creatorId], references: [id])
     creatorId   String
     guests      Guest[]
@@ -43,7 +43,7 @@ model Event {
     FileUpload FileUpload[]
 }
 
-model Location {
+model Venue {
     id          String  @id @default(cuid())
     name        String
     address     String
@@ -53,17 +53,19 @@ model Location {
     country     String  @default("United States")
     phone       String?
     email       String?
+    createdAt   DateTime @default(now())
 
     Event Event[]
 }
 
 model Guest {
-    id        String   @id @default(cuid())
-    event     Event    @relation(fields: [eventId], references: [id])
-    eventId   String
-    name      String
-    email     String?
-    rsvp      RsvpStatus @default(PENDING)
+    id          String   @id @default(cuid())
+    event       Event    @relation(fields: [eventId], references: [id])
+    eventId     String
+    name        String
+    email       String?
+    rsvp        RsvpStatus @default(PENDING)
+    // attended    RsvpStatus @default(PENDING)
 }
 
 enum RsvpStatus {

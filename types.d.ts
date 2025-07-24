@@ -22,6 +22,19 @@ interface EventProps {
     key: string;
 }
 
+interface QucikEventProps {
+    id: string
+    name: string
+    date?: Date | null
+    creator: {
+        id: string
+        username: string
+    },
+    venue?: {
+        name: string
+    } | null
+}
+
 interface Creator {
     id: string
     email: string
@@ -44,7 +57,7 @@ interface EventData {
     id: string
     name: string
     date: Date | null
-    location: EventLocation | null
+    venue: Venue | null
     creatorId: string
     createdAt: string
     creator: Creator
@@ -73,7 +86,7 @@ type User = {
     role: 'COUPLE' | 'PLANNER' | 'GUEST'    
 }
 
-interface EventLocation {
+interface Venue {
     id: string
     name: string
     address: string

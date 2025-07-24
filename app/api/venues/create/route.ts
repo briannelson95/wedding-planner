@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
-export async function PATCH(req: NextRequest, { params }: { params: { eventId: string } }) {
+export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions)
     if (!session?.user) {
         return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
@@ -12,18 +12,22 @@ export async function PATCH(req: NextRequest, { params }: { params: { eventId: s
     const body = await req.json()
 
     try {
-        const updated = await prisma.event.update({
-            where: { id: params.eventId },
+        const venue = await prisma.venue.create({
             data: {
                 name: body.name,
-                date: body.date ? new Date(body.date) : undefined,
-                venueId: body.venueId || null,
-            },
+                address: body.address,
+                city: body.city,
+                state: body.state,
+                postalCode: body.postalCode,
+                country: body.country,
+                phone: body.phone || undefined,
+                email: body.email || undefined
+            }
         })
 
-        return NextResponse.json(updated)
+        return NextResponse.json(venue)
     } catch (err) {
         console.error(err)
-        return NextResponse.json({ message: 'Error updating event' }, { status: 500 })
+        return NextResponse.json({ message: 'Error creating venue' }, { status: 500 })
     }
 }

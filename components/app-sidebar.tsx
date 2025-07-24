@@ -48,7 +48,7 @@ const data = {
     },
     {
       title: "Locations",
-      url: "/locations",
+      url: "/venues",
       icon: IconBuildingArch,
     },
   ],
