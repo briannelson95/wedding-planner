@@ -7,7 +7,7 @@ import { Label } from '../ui/label'
 import { toast } from 'sonner'
 
 interface CreateVenueFormProps {
-    onSuccess?: () => void
+    onSuccess?: (newVenueId?: string) => void
 }
 
 export default function CreateVenueForm({ onSuccess }: CreateVenueFormProps) {
@@ -38,7 +38,7 @@ export default function CreateVenueForm({ onSuccess }: CreateVenueFormProps) {
         }
 
         setLoading(true)
-            try {
+        try {
             const res = await fetch('/api/venues/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -46,6 +46,9 @@ export default function CreateVenueForm({ onSuccess }: CreateVenueFormProps) {
             })
 
             if (!res.ok) throw new Error('Failed to create venue')
+
+            const data = await res.json()
+            const newVenueId = data?.id
 
             toast.success('Venue created!')
             setFormData({
@@ -59,7 +62,7 @@ export default function CreateVenueForm({ onSuccess }: CreateVenueFormProps) {
                 email: ''
             })
 
-            if (onSuccess) onSuccess()
+            if (onSuccess) onSuccess(newVenueId)
         } catch (err) {
             console.error(err)
             toast.error('Something went wrong')
